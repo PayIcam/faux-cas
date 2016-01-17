@@ -17,7 +17,7 @@
 
 session_start();
 function gen_ticket_and_redirect($url) {
-  $ticket = str_replace('@', '&#64;', $_SESSION['login']) . '@' . $url . '@' .rand(1, 1000);
+  $ticket = $_SESSION['login']. '|' . $url . '|' .rand(1, 1000);
   $ticket = urlencode($ticket);
   $_SESSION[$url]['ticket'] = $ticket;
   
@@ -50,7 +50,7 @@ case 'auth':
 case 'serviceValidate':
   $service = $_GET['service'];
   $ticket = $_GET['ticket'];
-  $tab = explode("@", $ticket);
+  $tab = explode("|", $ticket);
   if ($service == $tab[1]) {
     $user = $tab[0];
     $_SESSION['state'] = 'ok';
