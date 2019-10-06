@@ -51,13 +51,10 @@ case 'serviceValidate':
   $service = $_GET['service'];
   $ticket = $_GET['ticket'];
   $tab = explode("|", $ticket);
-  if ($service == $tab[1]) {
     $user = $tab[0];
     $_SESSION['state'] = 'ok';
-    include 'success.xml';
-  } else {
-    include 'fail.xml';
-  }
+    $success = file_get_contents('success.xml');
+    echo str_replace("NAME", $user, $success);
   break;
 case 'logout':
   unset($_SESSION['state']);
